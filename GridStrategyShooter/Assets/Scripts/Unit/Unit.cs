@@ -7,9 +7,11 @@ public class Unit : MonoBehaviour
 
     private GridPosition gridPosition;
 
+
+    private MoveAction moveAction;
     private void Awake()
     {
-       
+       moveAction = GetComponent<MoveAction>();
     }
 
     void Start()
@@ -29,5 +31,11 @@ public class Unit : MonoBehaviour
 
             gridPosition = newGridPosition;
         }
+    }
+
+
+    public MoveAction GetMoveAction()
+    {
+        return moveAction;
     }
 }

@@ -6,7 +6,7 @@
             "id": "38cb9e8a-4526-429f-b276-e2bd1fbb0709",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Move",
                     "type": "Button",
                     "id": "bb0ae791-7f90-4dc9-b703-1dd0422c9753",
                     "expectedControlType": "Button",
@@ -19,11 +19,11 @@
                 {
                     "name": "",
                     "id": "4256801d-fc95-4de3-b24e-53761b6ee2bd",
-                    "path": "",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
