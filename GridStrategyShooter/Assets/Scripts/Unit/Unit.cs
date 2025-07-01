@@ -9,9 +9,11 @@ public class Unit : MonoBehaviour
 
 
     private MoveAction moveAction;
+    private SpinAction spinAction;
     private void Awake()
     {
-       moveAction = GetComponent<MoveAction>();
+        moveAction = GetComponent<MoveAction>();
+        spinAction = GetComponent<SpinAction>();
     }
 
     void Start()
@@ -31,8 +33,15 @@ public class Unit : MonoBehaviour
 
             gridPosition = newGridPosition;
         }
+
+        //Debug.Log(GetGridPosition() + new GridPosition(-2,-2));
     }
 
+
+    public GridPosition GetGridPosition()
+    { 
+        return gridPosition; 
+    }
 
     public MoveAction GetMoveAction()
     {

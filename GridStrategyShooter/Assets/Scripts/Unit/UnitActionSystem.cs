@@ -29,11 +29,16 @@ public class UnitActionSystem : MonoBehaviour
 
     private void Instance_OnMove(object sender, EventArgs e)
     {
-        if (!selectedUnit || TryGetSelectedUnit()) return;
+        if (TryGetSelectedUnit()) return;
 
-        GridPosition gridPosition = LevelGrid.Instance.GetGridPosition(MouseManager.Instance.GetMouseWorldPosition());
+       GridPosition gridPosition = LevelGrid.Instance.GetGridPosition(MouseManager.Instance.GetMouseWorldPosition());
+        
+        if(selectedUnit.GetMoveAction().IsValidActionAtGridPosition(gridPosition))
+        {
+            selectedUnit.GetMoveAction().Move(gridPosition);
+        }
 
-       selectedUnit.GetMoveAction().Move(gridPosition);
+      
 
     }
 

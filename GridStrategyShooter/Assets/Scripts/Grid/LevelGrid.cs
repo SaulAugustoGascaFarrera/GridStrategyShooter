@@ -49,11 +49,19 @@ public class LevelGrid : MonoBehaviour
         gridObject.RemoveUnit(unit);
     }
 
+    public bool HasAnyUnitAtGridPosition(GridPosition gridPosition)
+    {
+        GridObject gridObject = GetGridObject(gridPosition);
+        return gridObject.HasAnyUnit();
+    }
+
     public void MovedAtGridPosition(Unit unit,GridPosition fromGridPosition,GridPosition toGridPosition)
     {
         RemoveUnitAtGridPosition(unit,fromGridPosition);
         AddUnitAtGridPosition(unit, toGridPosition);
 
     }
+
+   
 
 }
