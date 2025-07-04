@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class MoveAction : BaseAction
     [SerializeField] private int maxMoveDistance = 2;
 
     private Vector3 targetPosition;
+    
 
     public override void Awake()
     {
@@ -20,19 +22,36 @@ public class MoveAction : BaseAction
 
     private void Update()
     {
+        if(!isActive)
+        {
+            return;
+        }
+
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
         if(Vector3.Distance(targetPosition,transform.position) > stoppingDistance)
         {
             transform.position += moveDirection * movementSpeed * Time.deltaTime;
+
+            
+        }
+        else
+        {
+            isActive = false;
+
+            onActionComplete();
         }
 
-        transform.forward += Vector3.Slerp(transform.forward,moveDirection, rotationSpeed * Time.deltaTime);
+        transform.forward += Vector3.Slerp(transform.forward, moveDirection, rotationSpeed * Time.deltaTime);
+
     }
 
-    public void Move(GridPosition gridPosition)
+    public void Move(GridPosition gridPosition,Action onActionComplete)
     {
+        this.onActionComplete = onActionComplete;
         targetPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
+        isActive = true;
+        
     }
 
 

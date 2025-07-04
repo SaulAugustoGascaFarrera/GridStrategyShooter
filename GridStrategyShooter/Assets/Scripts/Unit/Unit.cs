@@ -47,4 +47,10 @@ public class Unit : MonoBehaviour
     {
         return moveAction;
     }
+
+
+    public SpinAction GetSpinAction()
+    {
+        return spinAction;
+    }
 }

@@ -11,6 +11,9 @@ public class UnitActionSystem : MonoBehaviour
 
     [SerializeField] private Unit selectedUnit;
 
+
+    [SerializeField] private bool isBusy;
+
     private void Awake()
     {
         if(Instance != null)
@@ -27,19 +30,47 @@ public class UnitActionSystem : MonoBehaviour
         GameInput.Instance.OnMove += Instance_OnMove;
     }
 
+    private void Update()
+    {
+        if (isBusy) return;
+
+        if(Input.GetMouseButtonDown(1))
+        {
+            selectedUnit.GetSpinAction().Spin(ClearBusy);
+            SetBusy();
+        }
+    }
+
+
+
     private void Instance_OnMove(object sender, EventArgs e)
     {
-        if (TryGetSelectedUnit()) return;
+       
 
-       GridPosition gridPosition = LevelGrid.Instance.GetGridPosition(MouseManager.Instance.GetMouseWorldPosition());
+        if (TryGetSelectedUnit() || isBusy) return;
+
+        GridPosition gridPosition = LevelGrid.Instance.GetGridPosition(MouseManager.Instance.GetMouseWorldPosition());
+
         
-        if(selectedUnit.GetMoveAction().IsValidActionAtGridPosition(gridPosition))
+
+        if (selectedUnit.GetMoveAction().IsValidActionAtGridPosition(gridPosition))
         {
-            selectedUnit.GetMoveAction().Move(gridPosition);
+            SetBusy();
+            selectedUnit.GetMoveAction().Move(gridPosition,ClearBusy);
         }
 
       
 
+    }
+
+    private void SetBusy()
+    {
+        isBusy = true;
+    }
+
+    private void ClearBusy()
+    {
+        isBusy = false;
     }
 
 
